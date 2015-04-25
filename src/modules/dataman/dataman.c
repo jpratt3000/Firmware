@@ -132,7 +132,11 @@ static sem_t g_sys_state_mutex;
 
 /* The data manager store file handle and file name */
 static int g_fd = -1, g_task_fd = -1;
+#ifdef CONFIG_ARCH_BOARD_AEROCORE
+static const char *default_device_path = PX4_ROOTFSDIR"/fs/mtd_dataman";
+#else
 static const char *default_device_path = PX4_ROOTFSDIR"/fs/microsd/dataman";
+#endif
 static char *k_data_manager_device_path = NULL;
 
 /* The data manager work queues */
