@@ -23,6 +23,8 @@ MODULES		+= drivers/ms5611
 MODULES		+= drivers/gps
 MODULES		+= drivers/hil
 MODULES		+= modules/sensors
+MODULES		+= drivers/input_pwm
+MODULES		+= drivers/aerocore_rc
 
 #
 # System commands
@@ -46,6 +48,9 @@ MODULES		+= systemcmds/dumpfile
 MODULES		+= modules/commander
 MODULES		+= modules/navigator
 MODULES		+= modules/mavlink
+#MODULES		+= modules/gpio_led
+#MODULES		+= modules/uavcan
+MODULES		+= modules/land_detector
 
 #
 # Estimation modules (EKF / other filters)
@@ -63,6 +68,7 @@ MODULES		+= modules/fw_pos_control_l1
 MODULES		+= modules/fw_att_control
 MODULES		+= modules/mc_att_control
 MODULES		+= modules/mc_pos_control
+MODULES		+= modules/vtol_att_control
 
 #
 # Library modules
@@ -85,6 +91,22 @@ MODULES		+= lib/geo
 MODULES		+= lib/geo_lookup
 MODULES		+= lib/conversion
 MODULES		+= lib/launchdetection
+MODULES		+= platforms/nuttx
+
+#
+# OBC challenge
+#
+MODULES		+= modules/bottle_drop
+
+#
+# PX4 flow estimator, good for indoors
+#
+MODULES		+= examples/flow_position_estimator
+
+#
+# Rover apps
+#
+MODULES		+= examples/rover_steering_control
 
 #
 # Demo apps
@@ -109,6 +131,9 @@ MODULES		+= examples/px4_simple_app
 # Hardware test
 #MODULES			+= examples/hwtest
 
+# Generate parameter XML file
+GEN_PARAM_XML = 1
+
 #
 # Transitional support - add commands from the NuttX export archive.
 #
@@ -121,6 +146,10 @@ define _B
 	$(strip $1).$(or $(strip $2),SCHED_PRIORITY_DEFAULT).$(or $(strip $3),CONFIG_PTHREAD_STACK_DEFAULT).$(strip $4)
 endef
 
+#                  command                 priority                   stack  entrypoint
 BUILTIN_COMMANDS := \
-    $(call _B, hello, , 2048, hello_main) \
-    $(call _B, i2c, , 2048, i2c_main)
+     $(call _B,	hello,			,			   2048,  hello_main		     ) \
+     $(call _B,	i2c,			,			   2048,  i2c_main		     ) \
+     $(call _B, sercon,                 ,                          2048,  sercon_main                ) \
+     $(call _B, serdis,                 ,                          2048,  serdis_main                )
+
