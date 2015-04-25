@@ -11,6 +11,12 @@ if adc start
 then
 fi
 
+if ver hwcmp AEROCORE
+then
+	l3gd20 start
+	lsm303d start
+ 
+else 
 if ver hwcmp PX4FMU_V2
 then
 	# External I2C bus
@@ -96,6 +102,7 @@ else
 			fi
 		fi
 	fi
+fi
 fi
 
 if meas_airspeed start
