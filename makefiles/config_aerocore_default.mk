@@ -148,8 +148,6 @@ endef
 
 #                  command                 priority                   stack  entrypoint
 BUILTIN_COMMANDS := \
-     $(call _B,	hello,			,			   2048,  hello_main		     ) \
-     $(call _B,	i2c,			,			   2048,  i2c_main		     ) \
      $(call _B, sercon,                 ,                          2048,  sercon_main                ) \
      $(call _B, serdis,                 ,                          2048,  serdis_main                )
 
