@@ -116,7 +116,7 @@ protected:
     unsigned		_rc_chan_count;		///< Internal copy of the last seen number of RC channels
     uint64_t		_rc_last_valid;		///< last valid timestamp
 
-	RingBuffer		*_reports;
+	ringbuffer::RingBuffer		*_reports;
 
 uint16_t		_status;		///< Various IO status flags
 
@@ -191,8 +191,8 @@ AeroCoreIO::AeroCoreIO() :
     _rc_last_valid(0),
 	_reports(nullptr),
 _status(0),
-    _rc_topic(-1),
-	_to_input_rc(-1),
+    _rc_topic(nullptr),
+	_to_input_rc(nullptr),
 	_class_instance(-1),
 	_mavlink_fd(-1),
 	_sample_perf(perf_alloc(PC_ELAPSED, "ms5611_read")),
@@ -451,7 +451,7 @@ AeroCoreIO::io_publish_raw_rc()
     }
 
     /* lazily advertise on first publication */
-    if (_to_input_rc <= 0) {
+    if (_to_input_rc == nullptr) {
         _to_input_rc = orb_advertise(ORB_ID(input_rc), &rc_val);
 
     } else {

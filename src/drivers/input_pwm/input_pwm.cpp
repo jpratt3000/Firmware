@@ -132,7 +132,7 @@ private:
 	work_s			_work;
 	unsigned		_measure_ticks;
 
-	RingBuffer		*_reports;
+	ringbuffer::RingBuffer		*_reports;
 
 	int			_temp_variable;
 
@@ -208,7 +208,7 @@ InputPWM::InputPWM(uint8_t timer_index, const char* devName) :
 	_measure_ticks(0),
 	_reports(nullptr),
 	_temp_variable(2345),
-	_input_rc_topic(-1),
+	_input_rc_topic(nullptr),
 	_sample_perf(perf_alloc(PC_ELAPSED, "input_pwm_read")),
 	_buffer_overflows(perf_alloc(PC_COUNT, "input_pwm_buffer_overflows")),
 	_timer_index(timer_index)
@@ -296,7 +296,7 @@ InputPWM::init()
 	}
 
 	/* allocate basic report buffers */
-	_reports = new RingBuffer(2, sizeof(rc_input_values));
+	_reports = new ringbuffer::RingBuffer(2, sizeof(rc_input_values));
 	if (_reports == nullptr)
 		return ERROR;
 
@@ -304,7 +304,7 @@ InputPWM::init()
 	memset(&zero_report, 0, sizeof(zero_report));
 	_input_rc_topic = orb_advertise(ORB_ID(input_rc), &zero_report);
 
-	if (_input_rc_topic < 0)
+	if (_input_rc_topic == nullptr)
 		debug("failed to create input_rc object");
 
 	int channel_count = 0;
