@@ -37,4 +37,4 @@
 
 MODULE_COMMAND	= aerocore_rc
 
-SRCS		= aerocore_rc.cpp registers.c controls.c dsm.c
+SRCS		= aerocore_rc.cpp registers.c controls.c dsm.c aerocore_rc_params.c
