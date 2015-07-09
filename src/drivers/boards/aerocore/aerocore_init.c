@@ -45,8 +45,6 @@
  * Included Files
  ****************************************************************************/
 
-#include <px4_config.h>
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <debug.h>
@@ -70,20 +68,6 @@
 
 #include <systemlib/cpuload.h>
 #include <systemlib/perf_counter.h>
-#include <systemlib/param/param.h>
-
-/**
-* Configure the RC input for the AeroCore
-*
-* 1 = pwm (starts input_pwm app)
-* 2 = spektrum (starts input_spektrum app)
-* 0 = no app started (no RC input or PPM use through fmu app)
-*
-* @min = 0
-* @max = 2
-* @group = AeroCore
-*/
-PARAM_DEFINE_INT32(AEROCORE_RC, 0);
 
 /****************************************************************************
  * Pre-Processor Definitions
