@@ -228,6 +228,11 @@ then
 		then
 			set USE_IO no
 		fi
+
+		if ver hwcmp AEROCORE2
+		then
+			set USE_IO no
+		fi
 	else
 		set USE_IO no
 	fi
