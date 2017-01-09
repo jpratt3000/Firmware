@@ -179,6 +179,8 @@ static int g_fd = -1;
 static int g_task_fd = -1;
 #if defined(__PX4_POSIX_EAGLE) || defined(__PX4_POSIX_EXCELSIOR)
 static const char *default_device_path = PX4_ROOTFSDIR"/dataman";
+#elif CONFIG_ARCH_BOARD_AEROCORE2
+static const char *default_device_path = PX4_ROOTFSDIR"/fs/mtd_dataman";
 #else
 static const char *default_device_path = PX4_ROOTFSDIR"/fs/microsd/dataman";
 #endif
