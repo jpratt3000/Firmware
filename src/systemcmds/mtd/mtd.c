@@ -106,7 +106,11 @@ static struct mtd_dev_s *mtd_dev;
 static unsigned n_partitions_current = 0;
 
 /* note, these will be equally sized */
+#ifdef CONFIG_ARCH_BOARD_AEROCORE2
+static char *partition_names_default[] = {"/fs/mtd_params", "/fs/mtd_dataman"};
+#else
 static char *partition_names_default[] = {"/fs/mtd_params", "/fs/mtd_waypoints"};
+#endif
 static const int n_partitions_default = sizeof(partition_names_default) / sizeof(partition_names_default[0]);
 
 static void
@@ -304,6 +308,17 @@ mtd_start(char *partition_names[], unsigned n_partitions)
 
 		/* Create the partition */
 
+#ifdef CONFIG_ARCH_BOARD_AEROCORE2
+		// on the AeroCore2 we have a large FRAM and want to allocate the size appropriately
+		// make the first partition (params) = 32 blocks (total size = 32 * blocksize)
+		if (i==0)
+			nblocks = 32;
+		// and the second one (dataman) the remainder (much larger)
+		else if (i==1)
+			nblocks = neraseblocks-32;
+		else
+			nblocks = 0;
+#endif
 		part[i] = mtd_partition(mtd_dev, offset, nblocks);
 
 		if (!part[i]) {
