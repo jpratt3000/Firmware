@@ -227,6 +227,14 @@
 /* no GPIO driver on the SITL configuration */
 #endif
 
+#ifdef CONFIG_ARCH_BOARD_AEROCORE2
+/*
+ * AeroCore2 GPIO numbers and configuration.
+ *
+ */
+# define PX4FMU_DEVICE_PATH	"/dev/px4fmu"
+#endif
+
 #if !defined(CONFIG_ARCH_BOARD_PX4IO_V1) && \
     !defined(CONFIG_ARCH_BOARD_PX4IO_V2)  && \
 	!defined(CONFIG_ARCH_BOARD_PX4FMU_V1) && \
@@ -240,7 +248,8 @@
 	!defined(CONFIG_ARCH_BOARD_TAP_V1) && \
 	!defined(CONFIG_ARCH_BOARD_ASC_V1) && \
 	!defined(CONFIG_ARCH_BOARD_AEROFC_V1) && \
-	!defined(CONFIG_ARCH_BOARD_CRAZYFLIE)
+	!defined(CONFIG_ARCH_BOARD_CRAZYFLIE) && \
+	!defined(CONFIG_ARCH_BOARD_AEROCORE2)
 # error No CONFIG_ARCH_BOARD_xxxx set
 #endif
 /*

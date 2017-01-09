@@ -1063,6 +1063,8 @@ Sensors::parameters_update()
 		_parameters.battery_v_div = 10.177939394f;
 #elif defined (CONFIG_ARCH_BOARD_TAP_V1)
 		_parameters.battery_v_div = 9.0f;
+#elif defined (CONFIG_ARCH_BOARD_AEROCORE2)
+		_parameters.battery_v_div = 11.0f;
 #else
 		/* ensure a missing default trips a low voltage lockdown */
 		_parameters.battery_v_div = 0.0f;
@@ -1079,7 +1081,7 @@ Sensors::parameters_update()
 #if defined (CONFIG_ARCH_BOARD_PX4FMU_V4)
 		/* current scaling for ACSP4 */
 		_parameters.battery_a_per_v = 36.367515152f;
-#elif defined (CONFIG_ARCH_BOARD_PX4FMU_V2) || defined (CONFIG_ARCH_BOARD_MINDPX_V2) || defined (CONFIG_ARCH_BOARD_AEROCORE) || defined (CONFIG_ARCH_BOARD_PX4FMU_V1)
+#elif defined (CONFIG_ARCH_BOARD_PX4FMU_V2) || defined (CONFIG_ARCH_BOARD_MINDPX_V2) || defined (CONFIG_ARCH_BOARD_AEROCORE) || defined (CONFIG_ARCH_BOARD_PX4FMU_V1) || defined (CONFIG_ARCH_BOARD_AEROCORE2)
 		/* current scaling for 3DR power brick */
 		_parameters.battery_a_per_v = 15.391030303f;
 #elif defined (CONFIG_ARCH_BOARD_SITL)
